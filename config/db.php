@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=mysql-8.2;dbname=sever_auto_test',
+    'dsn' => 'mysql:host=mysql-8.2;dbname=sever-avto-testcase',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use app\models\Notification;
 
 /**
- * NotificationSeqrch represents the model behind the search form of `app\models\Notification`.
+ * NotificationSearch represents the model behind the search form of `app\models\Notification`.
  */
-class NotificationSeqrch extends Notification
+class NotificationSearch extends Notification
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class NotificationSeqrch extends Notification
     public function rules()
     {
         return [
-            [['id', 'views'], 'integer'],
-            [['title', 'content', 'created_at'], 'safe'],
+            [['id', 'view_count'], 'integer'],
+            [['title', 'text', 'created_at'], 'safe'],
         ];
     }
 
@@ -59,12 +59,12 @@ class NotificationSeqrch extends Notification
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'views' => $this->views,
+            'view_count' => $this->view_count,
             'created_at' => $this->created_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'text', $this->text]);
 
         return $dataProvider;
     }

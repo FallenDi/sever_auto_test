@@ -7,7 +7,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\models\NotificationSeqrch $searchModel */
+/** @var app\models\NotificationSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Notifications';
@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'content:ntext',
-            'views',
+            'text:ntext',
+            'view_count',
             'created_at',
             [
                 'class' => ActionColumn::className(),

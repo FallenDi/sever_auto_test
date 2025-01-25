@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\NotificationSeqrch $model */
+/** @var app\models\NotificationSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -19,9 +19,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-    <?= $form->field($model, 'content') ?>
+    <?= $form->field($model, 'text') ?>
 
-    <?= $form->field($model, 'views') ?>
+    <?= $form->field($model, 'view_count') ?>
 
     <?= $form->field($model, 'created_at') ?>
 
