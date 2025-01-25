@@ -14,7 +14,10 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'QGvd-HYNURaegsHrXjV24EMa5oNzrk_K',
+            'cookieValidationKey' => 'xIkHTcLVnXLWHZUd7aouMieUFiO0ZDX7',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -47,11 +50,25 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
         ],
        
     ],
+    'as cors' => [
+        'class' => \yii\filters\Cors::class,
+        'cors' => [
+            'Origin' => ['http://localhost:3000'],
+            'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'OPTIONS'],
+            'Access-Control-Request-Headers' => ['*'],
+        ],
+    ],
     'params' => $params,
+        'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\AdminModule',
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

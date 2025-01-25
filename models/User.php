@@ -1,55 +1,28 @@
-<?php
+<?
 namespace app\models;
 
-use Yii;
-use yii\base\NotSupportedException;
+use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use Yii;
 
-class User extends \yii\db\ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     public static function tableName()
     {
-        return 'user';
+        return '{{%users}}';
     }
 
-    public function rules()
-    {
-        return [
-            [['username', 'password_hash', 'auth_key'], 'required'],
-            [['username'], 'unique'],
-            [['password_hash'], 'string'],
-            [['auth_key'], 'string', 'max' => 32],
-        ];
-    }
+    // Методы IdentityInterface
 
     public static function findIdentity($id)
     {
-        return static::findOne($id);
+        return self::findOne($id);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-    }
-
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username]);
-    }
-
-    public function validatePassword($password)
-    {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
-    }
-
-    public function setPassword($password)
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
-    }
-
-    public function generateAuthKey()
-    {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        // Если используется access token (например, для API)
+        return null; // Или ваша логика
     }
 
     public function getId()
@@ -59,11 +32,34 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function getAuthKey()
     {
-        return $this->auth_key;
+        return $this->auth_key; // Убедитесь, что поле auth_key существует
     }
 
     public function validateAuthKey($authKey)
     {
         return $this->auth_key === $authKey;
+    }
+
+    // Дополнительные методы
+
+    public static function findByUsername($username)
+    {
+        return self::findOne(['username' => $username]);
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->auth_key = Yii::$app->security->generateRandomString();
+            }
+            return true;
+        }
+        return false;
     }
 }

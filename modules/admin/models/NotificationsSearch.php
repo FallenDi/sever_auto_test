@@ -1,15 +1,15 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Notification;
+use app\modules\admin\models\Notifications;
 
 /**
- * NotificationSearch represents the model behind the search form of `app\models\Notification`.
+ * NotificationsSearch represents the model behind the search form of `app\modules\admin\models\Notifications`.
  */
-class NotificationSearch extends Notification
+class NotificationsSearch extends Notifications
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class NotificationSearch extends Notification
     public function rules()
     {
         return [
-            [['id', 'view_count'], 'integer'],
-            [['title', 'text', 'created_at'], 'safe'],
+            [['id', 'views_count', 'user_id'], 'integer'],
+            [['title', 'content', 'created_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class NotificationSearch extends Notification
      */
     public function search($params)
     {
-        $query = Notification::find();
+        $query = Notifications::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +59,13 @@ class NotificationSearch extends Notification
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'view_count' => $this->view_count,
+            'views_count' => $this->views_count,
             'created_at' => $this->created_at,
+            'user_id' => $this->user_id,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'text', $this->text]);
+            ->andFilterWhere(['like', 'content', $this->content]);
 
         return $dataProvider;
     }
