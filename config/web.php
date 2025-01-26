@@ -50,7 +50,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-
+                'POST admin/notification-api/increment-view/<id:\d+>' => 'admin/notification-api/increment',
             ],
         ],
        
@@ -61,6 +61,16 @@ $config = [
             'Origin' => ['http://localhost:3000'],
             'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'OPTIONS'],
             'Access-Control-Request-Headers' => ['*'],
+        ],
+    ],
+    'as access' => [
+        'class' => \yii\filters\AccessControl::class,
+        'except' => ['notification-api/list'], // Исключаем список уведомлений
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
         ],
     ],
     'params' => $params,
