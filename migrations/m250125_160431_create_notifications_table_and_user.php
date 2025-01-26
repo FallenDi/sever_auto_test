@@ -14,6 +14,13 @@ class m250125_160431_create_notifications_table_and_user extends Migration
             'updated_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
         ]);
 
+        $this->addColumn('{{%users}}', 'auth_key', $this->string(32)->notNull()->defaultValue(''));
+
+        $this->insert('{{%users}}', [
+            'username' => 'admin',
+            'password_hash' => Yii::$app->getSecurity()->generatePasswordHash('eS7te#r'),
+        ]);
+
         // Создание таблицы уведомлений
         $this->createTable('{{%notifications}}', [
             'id' => $this->primaryKey(),
@@ -50,5 +57,8 @@ class m250125_160431_create_notifications_table_and_user extends Migration
         // Удаление таблиц
         $this->dropTable('{{%notifications}}');
         $this->dropTable('{{%users}}');
+        
+        $this->dropColumn('{{%users}}', 'auth_key');
+        $this->delete('{{%users}}', ['username' => 'admin']);
     }
 }

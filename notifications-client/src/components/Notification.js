@@ -29,8 +29,8 @@ const showNotification = (notification) => {
 };
 
 const NotificationComponent = () => {
-  const displayedNotifications = useRef(new Set()); // Отслеживаем показанные уведомления
-  const [isShowing, setIsShowing] = useState(false); // Флаг показа уведомления
+  const displayedNotifications = useRef(new Set()); 
+  const [isShowing, setIsShowing] = useState(false); 
 
   useEffect(() => {
     const fetchAndShowNotifications = async () => {
@@ -48,14 +48,12 @@ const NotificationComponent = () => {
         const notification = notifications[index];
 
         if (!displayedNotifications.current.has(notification.title)) {
-          setIsShowing(true); // Устанавливаем флаг показа
-          showNotification(notification); // Показываем уведомление
+          setIsShowing(true); 
+          showNotification(notification); 
           displayedNotifications.current.add(notification.title); // Отмечаем уведомление как показанное
 
-          // Инкрементируем счетчик просмотров на сервере
           await incrementNotificationViewCount(notification.id);
 
-          
           setTimeout(() => {
             setIsShowing(false);
             setTimeout(() => {

@@ -11,6 +11,5 @@ class AdminModule extends Module
     public function init()
     {
         parent::init();
-        // Дополнительная инициализация для модуля
     }
 }

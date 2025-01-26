@@ -27,7 +27,7 @@ class NotificationController extends Controller
             'rules' => [
                 [
                     'allow' => true,
-                    'roles' => ['@'], // Только авторизованные пользователи
+                    'roles' => ['@'],
                 ],
             ],
         ];

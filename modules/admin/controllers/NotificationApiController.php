@@ -25,13 +25,12 @@ class NotificationApiController extends Controller
             ],
         ];
 
-        // Фильтр доступа
         $behaviors['access'] = [
             'class' => AccessControl::class,
             'rules' => [
                 [
                     'allow' => true,
-                    'actions' => ['list', 'increment'], // Эти действия доступны всем
+                    'actions' => ['list', 'increment'],
                     'roles' => ['?', '@'],
                 ],
                 [
@@ -41,7 +40,6 @@ class NotificationApiController extends Controller
             ],
         ];
 
-        // Контент Negotiator
         $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::class,
             'formats' => [
@@ -57,6 +55,7 @@ class NotificationApiController extends Controller
      */
     public function actionList()
     {
+        //На будущее для показа конкретным юзерам
         //$userId = Yii::$app->user->id;
 
         $notifications = Notifications::find()
@@ -99,8 +98,6 @@ class NotificationApiController extends Controller
         if (!$notification) {
             return ['error' => 'Notification not found'];
         }
-
-        
 
         return ['status' => 'success'];
     }
