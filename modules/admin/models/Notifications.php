@@ -46,10 +46,10 @@ class Notifications extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'views_count' => 'Views Count',
-            'created_at' => 'Created At',
+            'title' => 'Заголовок уведомления',
+            'content' => 'Текст уведомления',
+            'views_count' => 'Количество показов уведомления',
+            'created_at' => 'Дата создания уведомления',
             'user_id' => 'User ID',
         ];
     }

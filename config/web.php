@@ -51,6 +51,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'POST admin/notification-api/increment-view/<id:\d+>' => 'admin/notification-api/increment',
+                'GET admin/notification-api/list' => 'admin/notification-api/list',
             ],
         ],
        
@@ -63,16 +64,7 @@ $config = [
             'Access-Control-Request-Headers' => ['*'],
         ],
     ],
-    'as access' => [
-        'class' => \yii\filters\AccessControl::class,
-        'except' => ['notification-api/list'], // Исключаем список уведомлений
-        'rules' => [
-            [
-                'allow' => true,
-                'roles' => ['@'],
-            ],
-        ],
-    ],
+    
     'params' => $params,
         'modules' => [
         'admin' => [

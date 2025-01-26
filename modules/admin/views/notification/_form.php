@@ -16,11 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'views_count')->textInput() ?>
+    <div class="form-group">
+        <label><?= Html::encode($model->getAttributeLabel('views_count')) ?></label>
+        <p><?= Html::encode($model->views_count) ?></p>
+    </div>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <div class="form-group">
+        <label><?= Html::encode($model->getAttributeLabel('created_at')) ?></label>
+        <p><?= Html::encode($model->created_at) ?></p>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

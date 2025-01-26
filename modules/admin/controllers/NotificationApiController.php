@@ -7,43 +7,45 @@ use app\modules\admin\models\Notifications;
 use yii\filters\ContentNegotiator;
 use yii\web\Response;
 use yii\filters\Cors;
+use yii\filters\AccessControl;
 
 class NotificationApiController extends Controller
 {
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+
+        $behaviors['corsFilter'] = [
+            'class' => Cors::class,
+            'cors' => [
+                'Origin' => ['http://localhost:3000'],
+                'Access-Control-Allow-Credentials' => true,
+                'Access-Control-Request-Method' => ['GET', 'POST', 'OPTIONS'],
+                'Access-Control-Allow-Headers' => ['*'],
+            ],
+        ];
+
+        // Фильтр доступа
         $behaviors['access'] = [
-            'class' => \yii\filters\AccessControl::class,
-            'only' => ['delete'], // Только для удаления нужна авторизация
+            'class' => AccessControl::class,
             'rules' => [
                 [
                     'allow' => true,
-                    'actions' => ['increment'], 
-                    'roles' => ['?'],
+                    'actions' => ['list', 'increment'], // Эти действия доступны всем
+                    'roles' => ['?', '@'],
                 ],
                 [
-                    'allow' => true,
-                    'actions' => ['list'], 
-                    'roles' => ['?'], 
+                    'allow' => false,
+                    'roles' => ['?'],
                 ],
             ],
         ];
 
+        // Контент Negotiator
         $behaviors['contentNegotiator'] = [
             'class' => ContentNegotiator::class,
             'formats' => [
                 'application/json' => Response::FORMAT_JSON,
-            ],
-        ];
-        
-        $behaviors['corsFilter'] = [
-            'class' => Cors::class,
-            'cors' => [
-                'Origin' => ['http://localhost:3000'], // Указываем конкретный источник
-                'Access-Control-Request-Method' => ['GET', 'POST', 'OPTIONS'], // Разрешенные методы
-                'Access-Control-Allow-Credentials' => true, // Разрешаем передачу куков
-                'Access-Control-Allow-Headers' => ['*'], // Разрешаем все заголовки
             ],
         ];
 
@@ -55,14 +57,10 @@ class NotificationApiController extends Controller
      */
     public function actionList()
     {
-        $userId = Yii::$app->user->id;
-
-        /* if (!$userId) {
-            return ['error' => 'User not authorized'];
-        } */
+        //$userId = Yii::$app->user->id;
 
         $notifications = Notifications::find()
-            ->where(['user_id' => $userId])
+            //->where(['user_id' => $userId])
             ->orderBy(['created_at' => SORT_ASC])
             ->asArray()
             ->all();

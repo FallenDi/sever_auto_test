@@ -5,8 +5,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\LoginForm */
 
-$this->title = 'Login';
-Yii::warning(Yii::$app->getSecurity()->generatePasswordHash('eS7te#r'));
+$this->title = 'Авторизация';
 ?>
 
 <div class="login-form">

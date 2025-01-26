@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\modules\admin\models\NotificationsSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Notifications';
+$this->title = 'Уведомления';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="notifications-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Notifications', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать уведомление', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
